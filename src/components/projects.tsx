@@ -56,7 +56,7 @@ export default function Projects() {
     const [activeProject, setActiveProject] = useState<number | null>(null);
 
     return (
-        <section id="projects" className="py-20 ">
+        <section id="projects" aria-label="Projecten" className="py-20 ">
             <div className="w-full px-4 md:px-6">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
@@ -83,7 +83,7 @@ export default function Projects() {
                             <div className="relative h-64 overflow-hidden">
                                 <Image
                                     src={project.image || "/placeholder.svg"}
-                                    alt={project.title}
+                                    alt={`Screenshot van project: ${project.title}`}
                                     fill
                                     className="object-cover transition-transform duration-500"
                                     style={{
@@ -92,6 +92,7 @@ export default function Projects() {
                                                 ? "scale(1.05)"
                                                 : "scale(1)",
                                     }}
+                                    priority={index === 0}
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
                                 <div className="absolute bottom-4 left-4 right-4">

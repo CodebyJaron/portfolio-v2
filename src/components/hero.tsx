@@ -1,11 +1,20 @@
 "use client";
 
-import Spline from "@splinetool/react-spline";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { InteractiveHoverButton } from "./ui/interactive-hover-button";
 import { TypewriterEffectSmooth } from "./ui/typewriter-effect";
+import dynamic from "next/dynamic";
+
+const Spline = dynamic(() => import("@splinetool/react-spline"), {
+    ssr: false,
+    loading: () => (
+        <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+    ),
+});
 
 export default function Hero() {
     const [loading, setLoading] = useState(true);
@@ -71,6 +80,7 @@ export default function Hero() {
     return (
         <section
             ref={heroRef}
+            aria-label="Introductie en welkom"
             className="relative h-screen container mx-auto overflow-hidden"
         >
             <div className="absolute inset-0 bg-gradient-radial from-blue-900/30 via-black to-black z-0"></div>
@@ -160,12 +170,6 @@ export default function Hero() {
                             }deg) rotateX(${-mousePosition.y * 5 + 2.5}deg)`,
                         }}
                     >
-                        {loading && (
-                            <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-                            </div>
-                        )}
-
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[400px] md:h-[400px] rounded-full bg-blue-500/20 blur-3xl"></div>
 
                         <div className="absolute inset-0 scale-[0.85] md:scale-[0.9] transform-gpu">

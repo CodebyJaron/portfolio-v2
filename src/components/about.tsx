@@ -43,6 +43,7 @@ export default function About() {
         <section
             id="about"
             ref={sectionRef}
+            aria-label="Over mij"
             className="py-20 relative overflow-hidden"
         >
             <div className="absolute inset-0 bg-gradient-to-b from-black via-blue-950/20 to-black z-0"></div>
@@ -77,6 +78,7 @@ export default function About() {
                                 src="/logo.png"
                                 alt="Jaron de Klein"
                                 fill
+                                priority
                                 className="object-cover"
                             />
                             <div className="absolute bottom-0 left-0 right-0 p-6 z-20">

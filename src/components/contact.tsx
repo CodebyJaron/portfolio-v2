@@ -54,7 +54,7 @@ export default function Contact() {
     };
 
     return (
-        <section id="contact" className="py-20 bg-black">
+        <section id="contact" aria-label="Contact" className="py-20 bg-black">
             <div className="w-full px-4 md:px-6">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
@@ -162,6 +162,7 @@ export default function Contact() {
                     >
                         <form
                             onSubmit={handleSubmit}
+                            aria-label="Contactformulier"
                             className="bg-blue-950/30 border border-blue-900 rounded-xl p-8 space-y-6"
                         >
                             <h3 className="text-2xl font-bold mb-6 text-blue-300">
@@ -231,6 +232,7 @@ export default function Contact() {
 
                             <Button
                                 type="submit"
+                                aria-label="Verstuur bericht"
                                 className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                                 disabled={isSubmitting}
                             >

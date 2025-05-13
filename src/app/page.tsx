@@ -5,11 +5,11 @@ import About from "@/components/about";
 
 export default function Home() {
     return (
-        <main className="min-h-screen bg-black text-white">
+        <>
             <Hero />
             <About />
             <Projects />
             <Contact />
-        </main>
+        </>
     );
 }
