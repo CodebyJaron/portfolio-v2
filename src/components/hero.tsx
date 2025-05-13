@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { InteractiveHoverButton } from "./ui/interactive-hover-button";
 import { TypewriterEffectSmooth } from "./ui/typewriter-effect";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 
 const Spline = dynamic(() => import("./SplineClientOnly"), {
     ssr: false,
@@ -25,6 +26,7 @@ export default function Hero() {
     const heroRef = useRef<HTMLDivElement>(null);
     const isInView = useInView(heroRef);
     const controls = useAnimation();
+    const [showSpline, setShowSpline] = useState(false);
 
     const words = [
         {
@@ -70,6 +72,18 @@ export default function Hero() {
             controls.start("visible");
         }
     }, [isInView, controls]);
+
+    useEffect(() => {
+        const enableSpline = () => setShowSpline(true);
+        window.addEventListener("scroll", enableSpline, { once: true });
+        window.addEventListener("keydown", enableSpline, { once: true });
+        window.addEventListener("pointerdown", enableSpline, { once: true });
+        return () => {
+            window.removeEventListener("scroll", enableSpline);
+            window.removeEventListener("keydown", enableSpline);
+            window.removeEventListener("pointerdown", enableSpline);
+        };
+    }, []);
 
     const scrollToProjects = () => {
         document
@@ -171,20 +185,31 @@ export default function Hero() {
                         }}
                     >
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[400px] md:h-[400px] rounded-full bg-blue-500/20 blur-3xl"></div>
-
-                        <div className="absolute inset-0 scale-[0.85] md:scale-[0.9] transform-gpu">
-                            <Spline
-                                scene="https://prod.spline.design/RZCwPUC1Wqs4bEiw/scene.splinecode"
-                                onLoad={onLoad}
-                                style={{
-                                    width: "100%",
-                                    height: "100%",
-                                    opacity: loading ? 0 : 1,
-                                    transition: "opacity 0.5s ease-in-out",
-                                }}
-                            />
-                        </div>
-
+                        {showSpline ? (
+                            <div className="absolute inset-0 scale-[0.85] md:scale-[0.9] transform-gpu pointer-events-none">
+                                <Spline
+                                    scene="https://prod.spline.design/RZCwPUC1Wqs4bEiw/scene.splinecode"
+                                    onLoad={onLoad}
+                                    style={{
+                                        width: "100%",
+                                        height: "100%",
+                                        opacity: loading ? 0 : 1,
+                                        transition: "opacity 0.5s ease-in-out",
+                                    }}
+                                />
+                            </div>
+                        ) : (
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <Image
+                                    src="/logo.png"
+                                    alt="Jaron de Klein"
+                                    width={320}
+                                    height={320}
+                                    className="rounded-full object-cover opacity-80"
+                                    priority
+                                />
+                            </div>
+                        )}
                         <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-blue-600/10 rounded-full blur-xl"></div>
                         <div className="absolute -top-10 -left-10 w-40 h-40 bg-blue-600/10 rounded-full blur-xl"></div>
                     </motion.div>
